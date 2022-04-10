@@ -1,5 +1,10 @@
-from django.urls import path
+from django.urls import path, include
 from .views import *
+from rest_framework import routers
+
+
+#router = routers.SimpleRouter()
+#router.register(r'book', BookViewSet)
 
 urlpatterns = [
     path('', books, name='books'),
@@ -11,4 +16,7 @@ urlpatterns = [
     path('add_book/', add_book, name='add_book'),
     path('update_book/<str:bookid>/', update_book, name='update_book'),
     path('del_book/<str:bookid>/', del_book, name='del_book'),
+   # path('api/v1/', include(router.urls)),
 ]
+
+
