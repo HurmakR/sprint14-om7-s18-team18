@@ -23,10 +23,10 @@ from book.views import BookViewSet
 from order.views import OrderViewSet
 
 router = routers.SimpleRouter()
-router.register(r'books', BookViewSet)
-router.register(r'authors', AuthorViewSet)
-router.register(r'orders', OrderViewSet)
-router.register(r'users', UserViewSet)
+router.register(r'book', BookViewSet)
+router.register(r'author', AuthorViewSet)
+router.register(r'order', OrderViewSet)
+router.register(r'user', UserViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
