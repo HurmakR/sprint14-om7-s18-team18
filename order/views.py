@@ -1,6 +1,7 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
-from rest_framework import viewsets
+from rest_framework import viewsets, status
+from rest_framework.response import Response
 
 from .models import Order, Book
 from book.models import Book
@@ -11,6 +12,17 @@ from .serializers import OrderSerializer
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+
+    def specific(self, request, order_id=None, user_id=None):
+        
+        try:
+            self.queryset = self.queryset.get(pk=order_id, user=user_id)
+        except:
+            raise Http404
+        
+        serializer_context = {'request': request, }
+        serializer = OrderSerializer(self.queryset, context=serializer_context)
+        return Response(serializer.data)
 
 
 def orders(request):

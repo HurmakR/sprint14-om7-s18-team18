@@ -26,4 +26,3 @@ class AddOrderPostForm(forms.ModelForm):
             'plated_end_at': 'Буде повернено',
             'end_at': 'Повернено',
         }
-
