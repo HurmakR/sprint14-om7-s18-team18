@@ -36,4 +36,5 @@ urlpatterns = [
     path('book/', include('book.urls')),
     path('', include('book.urls')),
     path('api/v1/', include(router.urls)),
+    path('api/v1/user/<int:user_id>/order/<int:order_id>/', OrderViewSet.as_view({'get': 'specific'}), name='user_specific'),
 ]
