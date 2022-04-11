@@ -1,10 +1,23 @@
+from rest_framework import generics, viewsets
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from .forms import *
 from .models import Book, Author
 
 # Create your views here.
+from .serializers import BookSerializer
 
+class BookViewSet(viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+
+    @action(methods=['get'], detail=True)
+    def authors(self, request, pk=None):
+        auths = Book.get_by_id(pk).authors.all()
+        return Response({'auths':[f'{a.name} {a.surname}' for a in auths]})
 
 def books(request):
     context = {
